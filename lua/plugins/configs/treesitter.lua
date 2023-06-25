@@ -1,5 +1,5 @@
 local options = {
-  ensure_installed = { "lua","rust","svele","python","typescript" },
+  ensure_installed = { "lua","rust" },
 
   highlight = {
     enable = true,
@@ -7,20 +7,9 @@ local options = {
   },
 
   indent = { enable = true },
-  python = {
-    enable = true
-  },
-  svelte = {
-      enable = true,
-      parser_config = {
-        tags = {
-          style = { "scoped" },
-          script = { "contextual_keyword" },
-        },
-      },
-  },
+
   rust = {
-    enable = true,
+    enable = true
   },
 }
 

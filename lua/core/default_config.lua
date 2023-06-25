@@ -15,6 +15,9 @@ M.ui = {
   transparency = false,
   lsp_semantic_tokens = false, -- needs nvim v0.9, just adds highlight groups for lsp semantic tokens
 
+  -- https://github.com/NvChad/base46/tree/v2.0/lua/base46/extended_integrations
+  extended_integrations = {}, -- these aren't compiled by default, ex: "alpha", "notify"
+
   -- cmp themeing
   cmp = {
     icons = true,
@@ -61,9 +64,9 @@ M.ui = {
 
     buttons = {
       { "  Find File", "Spc f f", "Telescope find_files" },
-      { "  Recent Files", "Spc f o", "Telescope oldfiles" },
-      { "  Find Word", "Spc f w", "Telescope live_grep" },
-      { "  Bookmarks", "Spc b m", "Telescope marks" },
+      { "󰈚  Recent Files", "Spc f o", "Telescope oldfiles" },
+      { "󰈭  Find Word", "Spc f w", "Telescope live_grep" },
+      { "  Bookmarks", "Spc m a", "Telescope marks" },
       { "  Themes", "Spc t h", "Telescope themes" },
       { "  Mappings", "Spc c h", "NvCheatsheet" },
     },

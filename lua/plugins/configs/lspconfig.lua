@@ -21,7 +21,6 @@ M.on_attach = function(client, bufnr)
   end
 end
 
-
 M.capabilities = vim.lsp.protocol.make_client_capabilities()
 
 M.capabilities.textDocument.completion.completionItem = {
@@ -64,5 +63,21 @@ require("lspconfig").lua_ls.setup {
     },
   },
 }
+
+require("lspconfig").pyright.setup{
+  on_attach = M.on_attach,
+  capabilities = M.capabilities,
+  settings = {
+      pyright = {autoImportCompletion = true,},
+      python = {analysis =
+        {autoSearchPaths = true,
+        diagnosticMode = 'openFilesOnly',
+        useLibraryCodeForTypes = true,
+        typeCheckingMode = 'off'
+        }
+    }
+  }
+}
+
 
 return M
