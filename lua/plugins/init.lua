@@ -29,6 +29,9 @@ local default_plugins = {
     init = function()
       require("core.utils").load_mappings "nvterm"
     end,
+    opts = function ()
+      return "plugins.configs.nvterm"
+    end,
     config = function(_, opts)
       require "base46.term"
       require("nvterm").setup(opts)
@@ -133,7 +136,8 @@ local default_plugins = {
 
       -- custom nvchad cmd to install all mason binaries listed
       vim.api.nvim_create_user_command("MasonInstallAll", function()
-        vim.cmd("MasonInstall " .. table.concat(opts.ensure_installed, " "))
+      print(opts.ensure_installed)
+      vim.cmd("MasonInstall " .. table.concat(opts.ensure_installed, " "))
       end, {})
 
       vim.g.mason_binaries_list = opts.ensure_installed
@@ -283,6 +287,13 @@ local default_plugins = {
       require('rust-tools').setup(opts)
     end
   },
+  {
+    "jose-elias-alvarez/null-ls.nvim",
+    ft={"python"},
+    opts = function ()
+      return require "plugins.configs.null-ls"
+    end,
+  }
 
   }
 

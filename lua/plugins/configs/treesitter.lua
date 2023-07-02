@@ -1,5 +1,5 @@
 local options = {
-  ensure_installed = { "lua","rust" },
+  ensure_installed = { "lua","rust","svelte","html","typescript" },
 
   highlight = {
     enable = true,
@@ -8,9 +8,14 @@ local options = {
 
   indent = { enable = true },
 
+  auto_install = true,
   rust = {
     enable = true
   },
+
+  svelte = {
+    enable = true,
+  }
 }
 
 return options

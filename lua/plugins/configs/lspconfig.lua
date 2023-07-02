@@ -67,6 +67,7 @@ require("lspconfig").lua_ls.setup {
 require("lspconfig").pyright.setup{
   on_attach = M.on_attach,
   capabilities = M.capabilities,
+  filetypes = {"python"},
   settings = {
       pyright = {autoImportCompletion = true,},
       python = {analysis =
@@ -79,5 +80,10 @@ require("lspconfig").pyright.setup{
   }
 }
 
+require("lspconfig").svelte.setup{
+  on_attach = M.on_attach,
+  capabilities = M.capabilities,
+  filetypes = {"svelte"},
+}
 
 return M
