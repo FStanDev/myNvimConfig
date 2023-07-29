@@ -1,7 +1,7 @@
 local options = {
   filters = {
     dotfiles = true,
-    exclude = { vim.fn.stdpath "config" .. "/lua/custom", ".gitignore" },
+    exclude = { vim.fn.stdpath "config" .. "/lua/custom", ".gitignore",".env" },
   },
   disable_netrw = true,
   hijack_netrw = true,

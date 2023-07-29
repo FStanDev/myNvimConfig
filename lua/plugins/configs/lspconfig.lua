@@ -83,7 +83,26 @@ require("lspconfig").pyright.setup{
 require("lspconfig").svelte.setup{
   on_attach = M.on_attach,
   capabilities = M.capabilities,
-  filetypes = {"svelte"},
+  filetypes = {"svelte",},
 }
+
+require("lspconfig").tsserver.setup{
+  on_attach = M.on_attach,
+  capabilities = M.capabilities,
+  filetypes = {"typescript",},
+
+}
+require("lspconfig").eslint.setup{
+  on_attach = M.on_attach, --   npm i -g vscode-langservers-extracted
+  capabilities = M.capabilities,
+--  filetypes = {"typescript","javascript"},
+}
+
+require("lspconfig").tailwindcss.setup{
+  on_attach = M.on_attach,
+  capabilities = M.capabilities,
+}
+
+
 
 return M
