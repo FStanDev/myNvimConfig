@@ -1,5 +1,5 @@
-local options = {
-  filters = {
+return {
+	filters = {
     dotfiles = true,
     exclude = { vim.fn.stdpath "config" .. "/lua/custom", ".gitignore",".env" },
   },
@@ -71,7 +71,4 @@ local options = {
         },
       },
     },
-  },
-}
-
-return options
+  },}

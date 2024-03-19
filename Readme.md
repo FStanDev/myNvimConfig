@@ -1,5 +1,16 @@
-# This is my nvchad configuration
+# My Nvim configuration
 
-Is a copy of nvhcad github repo and put my requirements in terms of lsp, formatters and so on.
+Initialy this was my [nvchad](https://github.com/NvChad/NvChad) configuration, but on v2.5 there were some changes that break my configuration and piss me off so I decided to make my own nvim configuration, to be as simple as possible for my needs, and leave it plublic if anyone wants to replicate it.
 
-Original repo [link](https://github.com/NvChad/NvChad)
+I don´t believe the v2.5 change was wrong, it was just a change and I´m still very grateful to Siduck for the amazing tool he made, and some configs are direct copies from their repo, like NvimTree configuration.
+
+I´ll add more configuration as I need it.
+
+## Config Structure
+
+### Base
+On base folder you will find the core configuration of nvim, like lazy installation and basic remappings.
+
+### Configs
+On configs folder you will find specific configuraton for each plugin of my setup.
+
