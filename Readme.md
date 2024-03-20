@@ -14,3 +14,11 @@ On base folder you will find the core configuration of nvim, like lazy installat
 ### Configs
 On configs folder you will find specific configuraton for each plugin of my setup.
 
+## Installation
+On Mac/Linux:
+
+```git clone https://github.com/FStanDev/myNvChadConfig.git ~/.config/nvim && nvim```
+
+On Windows:
+
+```git clone https://github.com/FStanDev/myNvChadConfig.git $ENV:USERPROFILE\AppData\Local\nvim && nvim```
