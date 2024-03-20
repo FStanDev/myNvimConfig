@@ -10,6 +10,27 @@ return {
   --  end
 },
 {
+    "nvim-treesitter/nvim-treesitter",
+    opts = {
+      ensure_installed = {
+        "vim",
+        "lua",
+        "vimdoc",
+        "html",
+        "css",
+        "javascript",
+        "typescript",
+        "tsx",
+        "c",
+	"rust",
+	"svelte",
+	"cpp",
+	"python",
+	"yaml"
+      },
+    },
+},
+{
   "oxfist/night-owl.nvim",
   lazy = false, -- make sure we load this during startup if it is your main colorscheme
   priority = 1000, -- make sure to load this before all the other start plugins

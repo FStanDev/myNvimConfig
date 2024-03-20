@@ -7,3 +7,4 @@ coc-settings.json
 lazy-lock.json
 .DS_Store
 .stylua.toml
+lua/.DS_Store
