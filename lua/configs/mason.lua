@@ -9,6 +9,8 @@ return {
 		"rustfmt",
 		"black",
 		"isort",
+		"typescript-language-server",
+		"svelte-language-server",
 	},
 
 	max_concurrent_installers = 10,
