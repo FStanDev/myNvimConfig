@@ -9,16 +9,47 @@ I´ll add more configuration as I need it.
 ## Config Structure
 
 ### Base
+
 On base folder you will find the core configuration of nvim, like lazy installation and basic remappings.
 
 ### Configs
+
 On configs folder you will find specific configuraton for each plugin of my setup.
 
+## Prerequisites
+
+Nvim [0.9.5](https://github.com/neovim/neovim/releases/tag/v0.9.5)
+
+[Ripgrep](https://github.com/BurntSushi/ripgrep) is optional but highly recommended
+
+[Node](https://nodejs.org/en/download) min version 18. This is for some lsp languages
+
 ## Installation
-On Mac/Linux:
 
-```git clone https://github.com/FStanDev/myNvChadConfig.git ~/.config/nvim && nvim```
+### On Mac/Linux:
 
-On Windows:
+Delete or backup old nvim folder just in case. Below commands shows how to delete old configuration
 
-```git clone https://github.com/FStanDev/myNvChadConfig.git $ENV:USERPROFILE\AppData\Local\nvim && nvim```
+```
+rm -rf ~/.config/nvim
+
+rm -rf ~/.local/share/nvim`
+````
+Then, clone this repo
+```
+git clone https://github.com/FStanDev/myNvChadConfig.git ~/.config/nvim && nvim
+```
+
+
+### On Windows:
+
+```
+rm -Force ~\AppData\Local\nvim
+rm -Force ~\AppData\Local\nvim-data`
+```
+
+```
+git clone https://github.com/FStanDev/myNvChadConfig.git $ENV:USERPROFILE\AppData\Local\nvim && nvim
+```
+
+Then, after all plugins installs, execute `:MasonInstallAll` and is done 😀
