@@ -34,18 +34,19 @@ Delete or backup old nvim folder just in case. Below commands shows how to delet
 rm -rf ~/.config/nvim
 
 rm -rf ~/.local/share/nvim`
-````
+```
+
 Then, clone this repo
+
 ```
 git clone https://github.com/FStanDev/myNvChadConfig.git ~/.config/nvim && nvim
 ```
-
 
 ### On Windows:
 
 ```
 rm -Force ~\AppData\Local\nvim
-rm -Force ~\AppData\Local\nvim-data`
+rm -Force ~\AppData\Local\nvim-data
 ```
 
 ```
