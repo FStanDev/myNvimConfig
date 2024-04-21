@@ -32,7 +32,7 @@ return {
 					"python",
 					"yaml",
 				},
-				sync_install = false,
+				sync_install = true,
 				highlight = { enable = true },
 				indent = { enable = true },
 			})
@@ -143,6 +143,50 @@ return {
 		end,
 		config = function(_, opts)
 			require("conform").setup(opts)
+		end,
+	},
+	{
+		"rust-lang/rust.vim",
+		ft = "rust",
+		init = function()
+			vim.g.rustfmt_autosave = 1
+		end,
+	},
+	{
+		"mrcjkb/rustaceanvim",
+		version = "^4", -- Recommended
+		lazy = false, -- This plugin is already lazy
+		ft = "rust",
+		dependencies = {
+			"neovim/nvim-lspconfig",
+		},
+		config = function()
+			local bufnr = vim.api.nvim_get_current_buf()
+			vim.keymap.set("n", "<leader>a", function()
+				vim.cmd.RustLsp("codeAction") -- supports rust-analyzer's grouping
+				vim.cmd.RustLsp("debug")
+				vim.cmd.RustLsp("debuggables")
+				-- or, to run the previous debuggable:
+				vim.cmd.RustLsp({ "debuggables", bang = true })
+				-- or, to override the executable's args:
+				vim.cmd.RustLsp({ "debuggables", "arg1", "arg2" })
+				-- or vim.lsp.buf.codeAction() if you don't want grouping.
+			end, { silent = true, buffer = bufnr })
+			vim.api.nvim_create_user_command("RustDebuggables", function()
+				vim.cmd("RustLsp debuggables")
+			end, {})
+		end,
+	},
+	{
+		"mfussenegger/nvim-dap",
+		--lldb is required for debuggin to work:
+		--vim.keymap.set("n", "<leader>ds", vim.cmd.DapSidebar)
+		config = function()
+			vim.api.nvim_create_user_command("DapSidebar", function()
+				local widgets = require("dap.ui.widgets")
+				local sidebar = widgets.sidebar(widgets.scopes)
+				sidebar.open()
+			end, {})
 		end,
 	},
 }

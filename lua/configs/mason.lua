@@ -11,6 +11,7 @@ return {
 		"isort",
 		"typescript-language-server",
 		"svelte-language-server",
+		"codelldb",
 	},
 
 	max_concurrent_installers = 10,
