@@ -13,5 +13,9 @@ vim.keymap.set("n", "<Tab>", vim.cmd.bnext)
 vim.keymap.set("n", "<S-Tab>", vim.cmd.bprevious)
 vim.keymap.set("n", "<leader>b", vim.cmd.DapToggleBreakpoint)
 vim.keymap.set("n", "<leader>ds", vim.cmd.DapSidebar)
+vim.keymap.set("n", "<leader>dp", function()
+	require("dap-python").test_method()
+end)
+
 -- Lazy requirement
 require("base.plugins.lazy")

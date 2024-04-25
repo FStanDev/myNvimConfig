@@ -12,6 +12,7 @@ return {
 		"typescript-language-server",
 		"svelte-language-server",
 		"codelldb",
+		"debugpy",
 	},
 
 	max_concurrent_installers = 10,
