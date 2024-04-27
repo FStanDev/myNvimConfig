@@ -33,7 +33,7 @@ Delete or backup old nvim folder just in case. Below commands shows how to delet
 ```
 rm -rf ~/.config/nvim
 
-rm -rf ~/.local/share/nvim`
+rm -rf ~/.local/share/nvim
 ```
 
 Then, clone this repo
