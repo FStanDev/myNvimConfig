@@ -44,7 +44,7 @@ return {
 		priority = 1000, -- make sure to load this before all the other start plugins
 		config = function()
 			-- load the colorscheme here
-			vim.cmd.colorscheme("duskfox")
+			--vim.cmd.colorscheme("duskfox")
 		end,
 	},
 	{
@@ -198,6 +198,26 @@ return {
 		config = function()
 			local path = "~/.local/share/nvim/mason/packages/debugpy/venv/bin/python"
 			require("dap-python").setup(path)
+		end,
+	},
+	{
+		"oxfist/night-owl.nvim",
+		lazy = false, -- make sure we load this during startup if it is your main colorscheme
+		priority = 1000, -- make sure to load this before all the other start plugins
+		config = function()
+			-- load the colorscheme here
+			require("night-owl").setup() -- You can pass in your personal settings here.
+			vim.cmd.colorscheme("night-owl")
+		end,
+	},
+	{
+		"nvim-lualine/lualine.nvim",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		opts = function()
+			return require("configs.lualine")
+		end,
+		config = function(_, opts)
+			require("lualine").setup(opts)
 		end,
 	},
 }
