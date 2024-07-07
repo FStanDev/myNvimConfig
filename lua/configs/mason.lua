@@ -13,6 +13,7 @@ return {
 		"svelte-language-server",
 		"codelldb",
 		"debugpy",
+		"zls",
 	},
 
 	max_concurrent_installers = 10,

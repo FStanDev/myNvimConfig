@@ -16,6 +16,8 @@ vim.keymap.set("n", "<leader>ds", vim.cmd.DapSidebar)
 vim.keymap.set("n", "<leader>dp", function()
 	require("dap-python").test_method()
 end)
-
+vim.keymap.set("n", "<leader>o", "o<Esc>k")
+vim.keymap.set("n", "<leader>x", vim.cmd.bdelete)
+--vim.o.timeoutlen=200
 -- Lazy requirement
 require("base.plugins.lazy")

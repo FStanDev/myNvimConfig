@@ -31,6 +31,7 @@ return {
 					"cpp",
 					"python",
 					"yaml",
+					"zig",
 				},
 				sync_install = false,
 				highlight = { enable = true },
@@ -198,6 +199,18 @@ return {
 		config = function()
 			local path = "~/.local/share/nvim/mason/packages/debugpy/venv/bin/python"
 			require("dap-python").setup(path)
+		end,
+	},
+	{
+		"mxsdev/nvim-dap-vscode-js",
+		dependencies = {
+			"mfussenegger/nvim-dap",
+		},
+		opts = function()
+			return require("configs.dap_js")
+		end,
+		config = function(_, opts)
+			require("dap-vscode-js").setup(opts)
 		end,
 	},
 	{
