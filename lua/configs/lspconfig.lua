@@ -44,3 +44,23 @@ lspconfig.lua_ls.setup({})
 lspconfig.tsserver.setup({})
 lspconfig.svelte.setup({})
 lspconfig.zls.setup({})
+lspconfig.astro.setup({})
+
+local esp_idf_path = os.getenv("IDF_PATH")
+if esp_idf_path then
+	-- for esp-idf
+	require("lspconfig").clangd.setup({
+		-- handlers = handlers,
+		cmd = {
+			"/Users/stan/.espressif/tools/esp-clang/esp-17.0.1_20240419/esp-clang/bin/clangd",
+			"--background-index",
+			"--query-driver=**",
+		},
+		root_dir = function()
+			-- leave empty to stop nvim from cd'ing into ~/ due to global .clangd file
+		end,
+	})
+else
+	-- clangd config
+	require("lspconfig").clangd.setup({})
+end

@@ -6,7 +6,6 @@ return {
 		"pyright",
 		"clangd",
 		"prettier",
-		"rustfmt",
 		"black",
 		"isort",
 		"typescript-language-server",
@@ -14,6 +13,8 @@ return {
 		"codelldb",
 		"debugpy",
 		"zls",
+		"astro-language-server",
+		"clang-language-server",
 	},
 
 	max_concurrent_installers = 10,
