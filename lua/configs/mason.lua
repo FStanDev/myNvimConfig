@@ -1,21 +1,21 @@
 return {
-	ensure_installed = {
+	ensure_installed = vim.list_extend({
 		"lua-language-server",
 		"stylua",
 		"rust-analyzer",
 		"pyright",
-		"clangd",
 		"prettier",
 		"black",
 		"isort",
 		"typescript-language-server",
 		"svelte-language-server",
-		"codelldb",
 		"debugpy",
-		"zls",
 		"astro-language-server",
+	}, vim.fn.has("unix") == 1 and {
+		"clangd",
+		"codelldb",
+		"zls",
 		"clang-language-server",
-	},
-
+	} or {}),
 	max_concurrent_installers = 10,
 }
