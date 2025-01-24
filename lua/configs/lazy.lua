@@ -15,24 +15,34 @@ return {
 		build = ":TSUpdate",
 		config = function()
 			local configs = require("nvim-treesitter.configs")
+
+			-- Base languages for all platforms
+			local base_languages = {
+				"vim",
+				"lua",
+				"vimdoc",
+				"html",
+				"css",
+				"javascript",
+				"typescript",
+				"tsx",
+				"rust",
+				"svelte",
+				"python",
+				"yaml",
+			}
+
+			-- Unix-only languages
+			local unix_languages = { "c", "cpp", "zig" }
+
+			-- Combine languages based on platform
+			local ensure_installed = base_languages
+			if vim.fn.has("unix") == 1 then
+				vim.list_extend(ensure_installed, unix_languages)
+			end
+
 			configs.setup({
-				ensure_installed = {
-					"vim",
-					"lua",
-					"vimdoc",
-					"html",
-					"css",
-					"javascript",
-					"typescript",
-					"tsx",
-					"c",
-					"rust",
-					"svelte",
-					"cpp",
-					"python",
-					"yaml",
-					"zig",
-				},
+				ensure_installed = ensure_installed,
 				sync_install = false,
 				highlight = { enable = true },
 				indent = { enable = true },
@@ -215,12 +225,20 @@ return {
 	},
 	{
 		"oxfist/night-owl.nvim",
-		lazy = false, -- make sure we load this during startup if it is your main colorscheme
-		priority = 1000, -- make sure to load this before all the other start plugins
+		lazy = true, --false, -- make sure we load this during startup if it is your main colorscheme
+		--priority = 1000, -- make sure to load this before all the other start plugins
 		config = function()
 			-- load the colorscheme here
 			require("night-owl").setup() -- You can pass in your personal settings here.
-			vim.cmd.colorscheme("night-owl")
+			-- vim.cmd.colorscheme("night-owl")
+		end,
+	},
+	{
+		"folke/tokyonight.nvim",
+		lazy = false,
+		priority = 1000,
+		config = function()
+			vim.cmd.colorscheme("tokyonight-storm")
 		end,
 	},
 	{

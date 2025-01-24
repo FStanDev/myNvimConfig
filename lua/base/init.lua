@@ -18,6 +18,8 @@ vim.keymap.set("n", "<leader>dp", function()
 end)
 vim.keymap.set("n", "<leader>o", "o<Esc>k")
 vim.keymap.set("n", "<leader>x", vim.cmd.bdelete)
+vim.keymap.set("v", "<leader>y", '"+yy', { noremap = true })
+vim.keymap.set("n", "<leader> dy", "3<cmd>lua vim.diagnostic.open_float()<CR>", { noremap = true })
 --vim.o.timeoutlen=200
 -- Lazy requirement
 require("base.plugins.lazy")
