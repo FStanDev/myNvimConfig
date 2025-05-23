@@ -20,6 +20,19 @@ vim.keymap.set("n", "<leader>o", "o<Esc>k")
 vim.keymap.set("n", "<leader>x", vim.cmd.bdelete)
 vim.keymap.set("v", "<leader>y", '"+yy', { noremap = true })
 vim.keymap.set("n", "<leader> dy", "3<cmd>lua vim.diagnostic.open_float()<CR>", { noremap = true })
+vim.keymap.set("n", "<leader>fi", "/", { noremap = true })
+-- Map leader + a to select entire document
+vim.keymap.set("n", "<leader>a", "ggVG", { noremap = true })
 --vim.o.timeoutlen=200
+vim.opt.foldmethod = "syntax"
+vim.opt.foldlevelstart = 99
+-- Toggle Tailwind class concealment
+vim.keymap.set("n", "<leader>tc", "<cmd>TailwindConcealToggle<CR>", { desc = "Toggle Tailwind conceal" })
+
+-- Sort Tailwind classes in the current buffer
+vim.keymap.set("n", "<leader>ts", "<cmd>TailwindSort<CR>", { desc = "Sort Tailwind classes" })
+
+-- Sort Tailwind classes in visual selection
+vim.keymap.set("v", "<leader>ts", "<cmd>TailwindSortSelection<CR>", { desc = "Sort Tailwind classes in selection" })
 -- Lazy requirement
 require("base.plugins.lazy")

@@ -8,6 +8,7 @@ return {
 		"black",
 		"isort",
 		"typescript-language-server",
+		"tailwindcss-language-server",
 		"svelte-language-server",
 		"debugpy",
 		"astro-language-server",
@@ -15,7 +16,6 @@ return {
 		"clangd",
 		"codelldb",
 		"zls",
-		"clang-language-server",
 	} or {}),
 	max_concurrent_installers = 10,
 }
