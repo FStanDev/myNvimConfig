@@ -8,7 +8,7 @@ return {
 		svelte = { "prettier" },
 		css = { "prettier" },
 		html = { "prettier" },
-		astro = { "astro" },
+		astro = { "prettier" },
 		json = { "prettier" },
 		yaml = { "prettier" },
 		markdown = { "prettier" },
