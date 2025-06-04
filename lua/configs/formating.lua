@@ -8,7 +8,7 @@ return {
 		svelte = { "prettier" },
 		css = { "prettier" },
 		html = { "prettier" },
-		astro = { "prettier" },
+		astro = { "astro" },
 		json = { "prettier" },
 		yaml = { "prettier" },
 		markdown = { "prettier" },
@@ -18,16 +18,16 @@ return {
 		rust = { "rustfmt" },
 	},
 	format_on_save = {
-		lsp_fallback = true,
 		async = false,
-		timeout_ms = 500,
+		timeout_ms = 1500,
+		lsp_fallback = true,
 	},
 
 	vim.keymap.set({ "n", "v" }, "<leader>mp", function()
 		conform.format({
-			lsp_fallback = true,
 			async = false,
 			timeout_ms = 1500,
+			lsp_fallback = true,
 		})
 	end, { desc = "Format file or range (in visual mode)" }),
 }
