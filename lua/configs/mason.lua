@@ -12,6 +12,7 @@ return {
 		"svelte-language-server",
 		"debugpy",
 		"astro-language-server",
+		"omnisharp",
 	}, vim.fn.has("unix") == 1 and {
 		"clangd",
 		"codelldb",
