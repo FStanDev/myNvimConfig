@@ -167,31 +167,6 @@ return {
 		end,
 	},
 	{
-		"mrcjkb/rustaceanvim",
-		version = "^4", -- Recommended
-		lazy = false, -- This plugin is already lazy
-		ft = "rust",
-		dependencies = {
-			"neovim/nvim-lspconfig",
-		},
-		config = function()
-			local bufnr = vim.api.nvim_get_current_buf()
-			vim.keymap.set("n", "<leader>a", function()
-				vim.cmd.RustLsp("codeAction") -- supports rust-analyzer's grouping
-				vim.cmd.RustLsp("debug")
-				vim.cmd.RustLsp("debuggables")
-				-- or, to run the previous debuggable:
-				vim.cmd.RustLsp({ "debuggables", bang = true })
-				-- or, to override the executable's args:
-				vim.cmd.RustLsp({ "debuggables", "arg1", "arg2" })
-				-- or vim.lsp.buf.codeAction() if you don't want grouping.
-			end, { silent = true, buffer = bufnr })
-			vim.api.nvim_create_user_command("RustDebuggables", function()
-				vim.cmd("RustLsp debuggables")
-			end, {})
-		end,
-	},
-	{
 		"mfussenegger/nvim-dap",
 		--lldb is required for debuggin to work:
 		--vim.keymap.set("n", "<leader>ds", vim.cmd.DapSidebar)
@@ -211,6 +186,17 @@ return {
 		},
 		config = function()
 			local path = "~/.local/share/nvim/mason/packages/debugpy/venv/bin/python"
+			local dap = require("dap")
+			dap.configurations.python = {
+				{
+					type = "python",
+					request = "launch",
+					name = "FastApi",
+					module = "fastapi",
+					args = { "main:app", "--reload", "--host", "0.0.0.0", "--port", "8000" },
+					console = "integratedTerminal",
+				},
+			}
 			require("dap-python").setup(path)
 		end,
 	},

@@ -40,7 +40,15 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 lspconfig.pyright.setup({})
 lspconfig.lua_ls.setup({})
---lspconfig.rust_analyzer.setup({})
+lspconfig.rust_analyzer.setup({
+	settings = {
+		["rust-analyzer"] = {
+			cargo = {
+				allFeatures = true,
+			},
+		},
+	},
+})
 lspconfig.ts_ls.setup({})
 lspconfig.svelte.setup({})
 if vim.fn.has("unix") == 1 then
