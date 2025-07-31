@@ -10,15 +10,12 @@ local base_languages = {
 	"javascript",
 	"typescript",
 	"tsx",
-	"rust",
-	"svelte",
 	"python",
 	"yaml",
-	"astro",
 }
 
--- Unix-only languages
-local unix_languages = { "c", "cpp", "zig" }
+-- Unix-only languages (require compilation tools)
+local unix_languages = { "c", "cpp", "zig", "rust", "svelte", "astro" }
 
 -- Combine languages based on platform
 local ensure_installed = base_languages
