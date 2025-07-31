@@ -50,7 +50,7 @@ rm -Force ~\AppData\Local\nvim-data
 ```
 
 ```
-git clone https://github.com/FStanDev/myNvChadConfig.git $ENV:USERPROFILE\AppData\Local\nvim && nvim
+git clone https://github.com/FStanDev/myNvChadConfig.git $ENV:USERPROFILE\AppData\Local\nvim; if ($?) { nvim }
 ```
 
 Then, after all plugins installs, execute `:MasonInstallAll` and is done 😀
