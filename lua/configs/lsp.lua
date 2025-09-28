@@ -1,5 +1,3 @@
-local lspconfig = require("lspconfig")
-
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 vim.keymap.set("n", "<space>d", vim.diagnostic.open_float)
@@ -38,9 +36,12 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	end,
 })
 
-lspconfig.pyright.setup({})
-lspconfig.lua_ls.setup({})
-lspconfig.rust_analyzer.setup({
+-- Enable LSP servers using the new vim.lsp.enable API
+vim.lsp.enable("pyright")
+vim.lsp.enable("lua_ls")
+
+-- Configure rust-analyzer with custom settings
+vim.lsp.config("rust_analyzer", {
 	settings = {
 		["rust-analyzer"] = {
 			cargo = {
@@ -49,14 +50,16 @@ lspconfig.rust_analyzer.setup({
 		},
 	},
 })
-lspconfig.ts_ls.setup({})
-lspconfig.svelte.setup({})
+vim.lsp.enable("rust_analyzer")
+
+vim.lsp.enable("ts_ls")
+vim.lsp.enable("svelte")
+
 if vim.fn.has("unix") == 1 then
 	local esp_idf_path = os.getenv("IDF_PATH")
 	if esp_idf_path then
 		-- for esp-idf
-		require("lspconfig").clangd.setup({
-			-- handlers = handlers,
+		vim.lsp.config("clangd", {
 			cmd = {
 				"/Users/stan/.espressif/tools/esp-clang/esp-17.0.1_20240419/esp-clang/bin/clangd",
 				"--background-index",
@@ -66,17 +69,18 @@ if vim.fn.has("unix") == 1 then
 				-- leave empty to stop nvim from cd'ing into ~/ due to global .clangd file
 			end,
 		})
-	else
-		-- clangd config
-		require("lspconfig").clangd.setup({})
 	end
-	lspconfig.zls.setup({})
+	vim.lsp.enable("clangd")
+	vim.lsp.enable("zls")
 end
 
-lspconfig.astro.setup({})
-lspconfig.omnisharp.setup({
+vim.lsp.enable("astro")
+
+-- Configure omnisharp with custom settings
+vim.lsp.config("omnisharp", {
 	cmd = { "omnisharp" },
 	enable_roslyn_analyzers = true,
 	organize_imports_on_format = true,
 	enable_import_completion = true,
 })
+vim.lsp.enable("omnisharp")

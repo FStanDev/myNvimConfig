@@ -33,7 +33,15 @@ return {
 			vim.g.mason_binaries_list = opts.ensure_installed
 		end,
 	},
-	{ "williamboman/mason-lspconfig.nvim" },
+	{
+		"williamboman/mason-lspconfig.nvim",
+		config = function()
+			require("mason-lspconfig").setup({
+				automatic_installation = false,
+				automatic_enable = false,
+			})
+		end,
+	},
 	{
 		"neovim/nvim-lspconfig",
 		dependencies = {
@@ -41,7 +49,7 @@ return {
 			{ "williamboman/mason-lspconfig.nvim" },
 		},
 		config = function()
-			require("configs.lspconfig")
+			require("configs.lsp")
 		end,
 	},
 	{
