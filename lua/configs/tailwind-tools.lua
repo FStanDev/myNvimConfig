@@ -2,7 +2,7 @@ return {
 	-- Server settings for the Tailwind CSS Language Server
 	server = {
 		-- You can override server capabilities here if needed
-		override = true,
+		override = false,  -- Disabled to avoid deprecated lspconfig usage
 		settings = {},
 		-- Configure on_attach to set up keymaps when LSP attaches
 		on_attach = function(client, bufnr)
