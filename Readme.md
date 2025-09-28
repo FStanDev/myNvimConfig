@@ -18,7 +18,7 @@ On configs folder you will find specific configuraton for each plugin of my setu
 
 ## Prerequisites
 
-Nvim >= [0.9.5](https://github.com/neovim/neovim/releases/tag/v0.9.5) (I´m currently using [0.10.3](https://github.com/neovim/neovim/releases/tag/v0.10.3))
+Nvim >= [0.11.2](https://github.com/neovim/neovim/releases/tag/v0.11.2) (I´m currently using [0.11.2](https://github.com/neovim/neovim/releases/tag/v0.11.2))
 
 [Ripgrep](https://github.com/BurntSushi/ripgrep) is optional but highly recommended
 
@@ -49,8 +49,11 @@ rm -Force ~\AppData\Local\nvim
 rm -Force ~\AppData\Local\nvim-data
 ```
 
+It's require for windows to have on your path the min-gw binaries to compile a few plugins. Please refer to [official documentation](https://www.mingw-w64.org/) for installation.
+
 ```
 git clone https://github.com/FStanDev/myNvChadConfig.git $ENV:USERPROFILE\AppData\Local\nvim; if ($?) { nvim }
+
 ```
 
 Then, after all plugins installs, execute `:MasonInstallAll` and is done 😀
