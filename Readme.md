@@ -18,7 +18,7 @@ On configs folder you will find specific configuraton for each plugin of my setu
 
 ## Prerequisites
 
-Nvim >= [0.11.2](https://github.com/neovim/neovim/releases/tag/v0.11.2) (I´m currently using [0.11.2](https://github.com/neovim/neovim/releases/tag/v0.11.2))
+Nvim >= [0.11.5](https://github.com/neovim/neovim/releases/tag/v0.11.5) (I´m currently using [0.11.5](https://github.com/neovim/neovim/releases/tag/v0.11.5))
 
 [Ripgrep](https://github.com/BurntSushi/ripgrep) is optional but highly recommended
 
