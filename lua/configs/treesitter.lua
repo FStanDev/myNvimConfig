@@ -1,4 +1,4 @@
-local configs = require("nvim-treesitter.configs")
+local configs = require("nvim-treesitter")
 
 -- Base languages for all platforms
 local base_languages = {
@@ -31,3 +31,4 @@ configs.setup({
 })
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+
