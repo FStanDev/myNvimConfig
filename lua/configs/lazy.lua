@@ -12,6 +12,7 @@ return {
 	},
 	{
 		"nvim-treesitter/nvim-treesitter",
+		tag="v0.10.0",
 		build = ":TSUpdate",
 		config = function()
 			require("configs.treesitter")
