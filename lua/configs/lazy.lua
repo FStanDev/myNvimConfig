@@ -10,9 +10,10 @@ return {
 		--	    require("telescope").setup(opts)
 		--  end
 	},
-	{
+{
 		"nvim-treesitter/nvim-treesitter",
-		tag="v0.10.0",
+		branch = "main",  
+		lazy = false,     
 		build = ":TSUpdate",
 		config = function()
 			require("configs.treesitter")
@@ -120,15 +121,93 @@ return {
 		end,
 	},
 	{
+		"rcarriga/nvim-dap-ui",
+		dependencies = {
+			"mfussenegger/nvim-dap",
+			"nvim-neotest/nvim-nio",
+		},
+		config = function()
+			local dap, dapui = require("dap"), require("dapui")
+
+			-- Setup dapui with default configuration
+			dapui.setup()
+
+			-- Automatically open/close UI when debugging starts/ends
+			dap.listeners.after.event_initialized["dapui_config"] = function()
+				dapui.open()
+			end
+			dap.listeners.before.event_terminated["dapui_config"] = function()
+				dapui.close()
+			end
+			dap.listeners.before.event_exited["dapui_config"] = function()
+				dapui.close()
+			end
+		end,
+	},
+	{
 		"mfussenegger/nvim-dap",
+		dependencies = {
+			"rcarriga/nvim-dap-ui",
+		},
 		--lldb is required for debuggin to work:
 		--vim.keymap.set("n", "<leader>ds", vim.cmd.DapSidebar)
 		config = function()
+			local dap = require("dap")
+
+			-- Create DapSidebar command
 			vim.api.nvim_create_user_command("DapSidebar", function()
 				local widgets = require("dap.ui.widgets")
 				local sidebar = widgets.sidebar(widgets.scopes)
 				sidebar.open()
 			end, {})
+
+			-- Configure codelldb adapter for Rust
+			dap.adapters.codelldb = {
+				type = "server",
+				port = "${port}",
+				executable = {
+					command = vim.fn.stdpath("data") .. "/mason/packages/codelldb/extension/adapter/codelldb",
+					args = {"--port", "${port}"},
+				}
+			}
+
+			-- Rust debugging configurations
+			dap.configurations.rust = {
+				{
+					name = "Launch Rust Binary",
+					type = "codelldb",
+					request = "launch",
+					program = function()
+						return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/target/debug/', 'file')
+					end,
+					cwd = '${workspaceFolder}',
+					stopOnEntry = false,
+				},
+				{
+					name = "Launch Rust Binary with Args",
+					type = "codelldb",
+					request = "launch",
+					program = function()
+						return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/target/debug/', 'file')
+					end,
+					args = function()
+						local args_string = vim.fn.input('Arguments: ')
+						return vim.split(args_string, " +")
+					end,
+					cwd = '${workspaceFolder}',
+					stopOnEntry = false,
+				},
+				{
+					name = "Debug Rust Tests",
+					type = "codelldb",
+					request = "launch",
+					program = function()
+						return vim.fn.input('Path to test executable: ', vim.fn.getcwd() .. '/target/debug/deps/', 'file')
+					end,
+					cwd = '${workspaceFolder}',
+					stopOnEntry = false,
+				},
+			}
 		end,
 	},
 	{
