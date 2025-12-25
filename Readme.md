@@ -24,11 +24,29 @@ Nvim >= [0.11.5](https://github.com/neovim/neovim/releases/tag/v0.11.5) (I´m cu
 
 [Node](https://nodejs.org/en/download) min version 18. This is for some lsp languages
 
+[tree-sitter-cli >= '0.26.1'](https://github.com/tree-sitter/tree-sitter/blob/master/crates/cli/README.md) New requirement to make tree-sitter work
+
 ## Installation
+
+>[!CAUTION]
+> If something goes wrong with your installation, my recomendation is to nuke everything related to nvim cache files and start from scratch
+> For Linux/Mac
+>```
+>rm -rf ~/.local/share/nvim/
+>rm -rf ~/.local/state/nvim/
+>rm -rf ~/.cache/nvim/
+>```
+>For Windows using powershell
+>```
+>Remove-Item -Recurse -Force $env:LOCALAPPDATA\nvim-data
+>Remove-Item -Recurse -Force $env:LOCALAPPDATA\nvim\state
+>Remove-Item -Recurse -Force $env:LOCALAPPDATA\Temp\nvim
+>Remove-Item -Recurse -Force $env:LOCALAPPDATA\nvim-data\lazy\nvim-treesitter
+>```
 
 ### On Mac/Linux:
 
-Delete or backup old nvim folder just in case. Below commands shows how to delete old configuration
+Delete or backup old nvim folder. Below commands shows how to delete old configuration
 
 ```
 rm -rf ~/.config/nvim
