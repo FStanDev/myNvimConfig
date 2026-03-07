@@ -32,6 +32,7 @@ local unix_languages = {
 	"cpp",
 	"zig",
 	"rust",
+	"go",
 	"svelte",
 	"astro",
 }
@@ -53,6 +54,7 @@ vim.api.nvim_create_autocmd("FileType", {
 		"python",
 		"lua",
 		"rust",
+		"go",
 		"javascript",
 		"typescript",
 		"tsx",

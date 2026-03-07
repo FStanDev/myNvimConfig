@@ -16,6 +16,7 @@ return {
 		lua = { "stylua" },
 		python = { "isort", "black" },
 		rust = { "rustfmt" },
+		go = { "gofumpt", "goimports" },
 	},
 	format_on_save = {
 		async = false,

@@ -90,7 +90,13 @@ vim.keymap.set("n", "[b", function()
 	end
 end, { desc = "Jump to previous breakpoint" })
 vim.keymap.set("n", "<leader>o", "o<Esc>k")
-vim.keymap.set("n", "<leader>x", vim.cmd.bdelete)
+vim.keymap.set("n", "<leader>x", function()
+	local bufs = vim.fn.getbufinfo({ buflisted = 1 })
+	if #bufs > 1 then
+		vim.cmd.bprevious()
+	end
+	vim.cmd.bdelete("#")
+end)
 vim.keymap.set("v", "<leader>y", '"+yy', { noremap = true })
 vim.keymap.set("n", "<leader> dy", "3<cmd>lua vim.diagnostic.open_float()<CR>", { noremap = true })
 vim.keymap.set("n", "<leader>fi", "/", { noremap = true })

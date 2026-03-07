@@ -76,6 +76,8 @@ end
 
 vim.lsp.enable("astro")
 
+vim.lsp.enable("gopls")
+
 -- Configure omnisharp with custom settings
 vim.lsp.config("omnisharp", {
 	cmd = { "omnisharp" },
