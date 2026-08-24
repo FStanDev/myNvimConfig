@@ -4,6 +4,104 @@ A record of what changed in this config, and *why*. Newest entry first.
 
 ---
 
+## 2026-08-24 — Working JavaScript/TypeScript debugging
+
+Branch: `modernize-nvim-0.12`.
+
+**Context.** `lua/configs/dap_js.lua` pointed `debugger_path` at a
+`vscode-js-debug` checkout that was never in the plugin spec and never
+installed, so the JS debug adapter had nothing to launch — JS/TS debugging did
+not work at all. The wrapper plugin it depended on, `mxsdev/nvim-dap-vscode-js`,
+is **not archived** (checked via the GitHub API: `archived=false`) but its last
+commit is **2023-03-06** with 42 open issues — unmaintained in practice.
+
+**Change.** Dropped the wrapper entirely and drive
+[microsoft/vscode-js-debug](https://github.com/microsoft/vscode-js-debug) —
+the same debugger VS Code ships — directly from nvim-dap, which is what the
+[official nvim-dap wiki](https://codeberg.org/mfussenegger/nvim-dap/wiki/Debug-Adapter-installation)
+now recommends ("No wrapper plugin required"). This is the same pattern the
+config already uses for `codelldb`.
+
+- `lua/configs/mason.lua` — added `js-debug-adapter` to `ensure_installed`.
+- `lua/configs/dap_js.lua` — rewritten as a module exposing `setup()`, which
+  registers the `pwa-node` and `pwa-chrome` adapters plus five launch/attach
+  configurations for `javascript`, `typescript`, `javascriptreact`,
+  `typescriptreact`, `svelte` and `astro`.
+- `lua/configs/lazy.lua` — removed the `mxsdev/nvim-dap-vscode-js` spec, and
+  call `require("configs.dap_js").setup()` from the existing nvim-dap config.
+
+**Net result: one fewer plugin, and JS debugging that actually runs.**
+
+*On the `pwa-` prefix:* it has nothing to do with Progressive Web Apps. It is a
+legacy name from when this debugger shipped as a preview ("JavaScript Debugger
+(Nightly)") and was kept for backwards compatibility. `pwa-node` is Node;
+`pwa-chrome` is the browser.
+
+### Configurations added
+
+| name | type | debugs |
+|---|---|---|
+| Node: launch current file | `pwa-node` | the file in the current buffer |
+| Node: attach to process | `pwa-node` | pick a running Node process |
+| Node: attach to port 9229 | `pwa-node` | a dev server started with `--inspect` |
+| Chrome: launch against dev server | `pwa-chrome` | the app in the browser, prompts for the URL (defaults to `http://localhost:5173`) |
+| Chrome: attach on port 9222 | `pwa-chrome` | a Chrome already started with `--remote-debugging-port=9222` |
+
+All carry `skipFiles` for `<node_internals>` and `node_modules` so stepping
+doesn't wander into dependencies. The Chrome launch config uses a throwaway
+`userDataDir` under `stdpath("cache")` so debugging never touches your real
+Chrome profile or session.
+
+### Why the adapter has an explicit timeout
+
+nvim-dap's `initialize_timeout_sec` defaults to **4** seconds, which a cold
+Chrome launch exceeds — producing a spurious *"Debug adapter didn't respond"*
+warning before the session connects normally. Raised to 10s for `pwa-node` and
+20s for `pwa-chrome`. Verified: the warning appears at the default and is gone
+after the change, with identical debugging behaviour.
+
+### How this was verified
+
+End-to-end in an isolated sandbox, not just loaded. The real `~/.config/nvim`
+and `~/.local/share/nvim` were not used as the test target.
+
+**Node** — breakpoint on line 3 of a real script, launched via the committed
+config:
+
+```
+stopped at: app.js:3
+cursor now: app.js:3
+locals at breakpoint: a=2, b=40, Return value=42, sum=42, this=global
+```
+
+**Browser** — static dev server on :5199, breakpoint in an ES module, Chrome
+launched headless by the adapter:
+
+```
+using config: Chrome: launch against dev server  (type=pwa-chrome)
+stopped at: main.js:3
+locals in browser: doubled=42, Return value=42, this=undefined, x=21
+```
+
+Both hit the breakpoint, resolved the source back to the file on disk, and
+returned live variable values.
+
+### Known limits
+
+- The browser test used **plain ES modules**. `sourceMapPathOverrides` for
+  Svelte/Astro components is included and covers the common vite layouts, but
+  **has not been verified against a real Svelte or Astro project** — if a
+  breakpoint in a `.svelte`/`.astro` file shows as unbound, `webRoot` and those
+  overrides are the knobs to adjust.
+- Breakpoints inside component *markup* are less reliable than in `<script>`
+  blocks or plain `.ts` files. That is a framework/source-map property, not a
+  Neovim one.
+- `pwa-msedge`, `node-terminal` and `pwa-extensionHost` are supported by the
+  same adapter but are not configured — the old `dap_js.lua` listed them, but
+  none were ever usable. Add them if needed.
+
+---
+
 ## 2026-08-24 — Neovim 0.12 bug fixes and modernization
 
 Branch: `modernize-nvim-0.12`. Verified against Neovim **0.12.2**.

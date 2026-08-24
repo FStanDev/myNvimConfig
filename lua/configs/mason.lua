@@ -13,6 +13,7 @@ return {
 		"tailwindcss-language-server",
 		"svelte-language-server",
 		"astro-language-server",
+		"js-debug-adapter", -- JS/TS debugging (microsoft/vscode-js-debug)
 		--"omnisharp", Only if required, not on my MacOS setup
 	}, vim.fn.has("unix") == 1 and {
 		"clangd",

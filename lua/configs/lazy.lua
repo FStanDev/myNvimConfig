@@ -160,6 +160,10 @@ return {
 		config = function()
 			local dap = require("dap")
 
+			-- JavaScript/TypeScript adapters + configurations
+			-- (vscode-js-debug via Mason, no wrapper plugin).
+			require("configs.dap_js").setup()
+
 			-- Create DapSidebar command
 			vim.api.nvim_create_user_command("DapSidebar", function()
 				local widgets = require("dap.ui.widgets")
@@ -236,18 +240,6 @@ return {
 				},
 			}
 			require("dap-python").setup(path)
-		end,
-	},
-	{
-		"mxsdev/nvim-dap-vscode-js",
-		dependencies = {
-			"mfussenegger/nvim-dap",
-		},
-		opts = function()
-			return require("configs.dap_js")
-		end,
-		config = function(_, opts)
-			require("dap-vscode-js").setup(opts)
 		end,
 	},
 	{
