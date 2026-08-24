@@ -17,6 +17,10 @@ return {
 		"zls",
 		"rust-analyzer",
 		"debugpy",
+		"gopls",
+		"gofumpt",
+		"goimports",
+		"delve",
 	} or {}),
 	max_concurrent_installers = 10,
 }
