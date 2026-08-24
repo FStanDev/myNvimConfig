@@ -32,6 +32,7 @@ local unix_languages = {
 	"cpp",
 	"zig",
 	"rust",
+	"go",
 	"svelte",
 	"astro",
 }
@@ -39,7 +40,7 @@ local unix_languages = {
 -- Combine languages based on platform
 local languages_to_install = base_languages
 if vim.fn.has("unix") == 1 then
-    vim.list_extend(languages_to_install, unix_languages)
+	vim.list_extend(languages_to_install, unix_languages)
 end
 
 -- No more ensure installed :(
@@ -53,6 +54,7 @@ vim.api.nvim_create_autocmd("FileType", {
 		"python",
 		"lua",
 		"rust",
+		"go",
 		"javascript",
 		"typescript",
 		"tsx",
@@ -61,9 +63,23 @@ vim.api.nvim_create_autocmd("FileType", {
 		"cpp",
 		"html",
 		"css",
+		"svelte",
+		"astro",
 	},
 	callback = function()
 		vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+	end,
+})
+
+-- Enable treesitter-based syntax highlighting for filetypes not handled by Neovim's
+-- built-in parsers (e.g. svelte, astro). Requires the parser to be installed.
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = {
+		"svelte",
+		"astro",
+	},
+	callback = function()
+		vim.treesitter.start()
 	end,
 })
 
