@@ -161,9 +161,9 @@ behaviour or needs a decision:
 
 - **`lua/configs/dap_js.lua`** — `debugger_path` points at
   `lazy/vscode-js-debug`, which is **not in the plugin spec and not installed**,
-  so the JS debug adapter has nothing to launch. `nvim-dap-vscode-js` is also
-  archived upstream. Removed the duplicated `"chrome"` entry and added a note.
-  Needs a decision: add `vscode-js-debug` as a built spec, or drop JS debugging.
+  so the JS debug adapter has nothing to launch. Removed the duplicated
+  `"chrome"` entry and added a note. See the 2026-08-24 addendum below for the
+  replacement options.
 - **`lua/configs/mason.lua`** — `ensure_installed` is **not a mason.nvim option**;
   mason has no such setting. It works only because `lua/configs/lazy.lua`
   hand-rolls a `:MasonInstallAll` command that reads it. Documented so this
@@ -175,16 +175,14 @@ behaviour or needs a decision:
   muscle memory — every one of those actions is already bound elsewhere in this
   config. Move `gr` if the lag becomes annoying.
 
-### Recommended but not done
+### Decisions taken
 
-**Commit `lazy-lock.json`.** It is currently in `.gitignore`, so plugin versions
-float freely and the two machines this config runs on have no shared pin. That
-is exactly what produced the `Freeze on old dependencies…` → `Add support for
-main brach of treesitter` cycle and the `Solve conflicts on local and remote
-file` merge. Tracking the lockfile makes plugin upgrades a deliberate,
-reviewable commit instead of a surprise. Left alone because it's a workflow
-decision, not a code fix — to adopt it, drop the `lazy-lock.json` line from
-`.gitignore` and commit the file.
+**`lazy-lock.json` stays in `.gitignore`.** Tracking it was considered — it
+would give the two clones a shared plugin pin, which is what the
+`Freeze on old dependencies…` cycle and the `Solve conflicts on local and
+remote file` merge were working around. Decided against: plugins keep floating,
+and version drift is handled by pinning individual specs when something breaks
+(as `mason` is now pinned to `^2.0.0`). No change to `.gitignore`.
 
 ### How this was verified
 
