@@ -1,17 +1,35 @@
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-vim.keymap.set("n", "<space>d", vim.diagnostic.open_float)
-vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
-vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
-vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist)
+vim.keymap.set("n", "<space>d", vim.diagnostic.open_float, { desc = "Show diagnostic under cursor" })
+-- `vim.diagnostic.goto_prev/goto_next` are deprecated and scheduled for removal
+-- in Neovim 0.13. `vim.diagnostic.jump()` is the replacement; `float = true`
+-- keeps the old behaviour of popping the diagnostic open after jumping.
+vim.keymap.set("n", "[d", function()
+	vim.diagnostic.jump({ count = -1, float = true })
+end, { desc = "Previous diagnostic" })
+vim.keymap.set("n", "]d", function()
+	vim.diagnostic.jump({ count = 1, float = true })
+end, { desc = "Next diagnostic" })
+vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist, { desc = "Diagnostics to loclist" })
+
+-- Advertise the completion capabilities nvim-cmp adds on top of Neovim's
+-- defaults (snippet support, additionalTextEdits resolve, ...) to every server.
+-- `vim.lsp.config('*', ...)` is the 0.11+ way to set defaults shared by all
+-- configs; without this, cmp-nvim-lsp is installed but never actually wired in.
+local ok_cmp_lsp, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+if ok_cmp_lsp then
+	vim.lsp.config("*", {
+		capabilities = cmp_nvim_lsp.default_capabilities(),
+	})
+end
 
 -- Use LspAttach autocommand to only map the following keys
 -- after the language server attaches to the current buffer
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("UserLspConfig", {}),
 	callback = function(ev)
-		-- Enable completion triggered by <c-x><c-o>
-		vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
+		-- NOTE: `omnifunc` is set automatically by Neovim on attach since 0.8,
+		-- so the manual assignment that used to live here was removed.
 
 		-- Buffer local mappings.
 		-- See `:help vim.lsp.*` for documentation on any of the below functions
@@ -65,8 +83,13 @@ if vim.fn.has("unix") == 1 then
 				"--background-index",
 				"--query-driver=**",
 			},
-			root_dir = function()
-				-- leave empty to stop nvim from cd'ing into ~/ due to global .clangd file
+			-- Under `vim.lsp.config` the signature is `function(bufnr, on_dir)` and
+			-- the server only starts once `on_dir` is called. The old 0-argument
+			-- version returned nothing and silently prevented clangd from ever
+			-- starting. Pin the root to the cwd so a stray global ~/.clangd can't
+			-- pull the workspace up to $HOME.
+			root_dir = function(_, on_dir)
+				on_dir(vim.fn.getcwd())
 			end,
 		})
 	end
@@ -78,11 +101,21 @@ vim.lsp.enable("astro")
 
 vim.lsp.enable("gopls")
 
--- Configure omnisharp with custom settings
+-- Configure omnisharp with custom settings.
+-- The old top-level `enable_roslyn_analyzers` / `organize_imports_on_format` /
+-- `enable_import_completion` keys came from the nvim-lspconfig omnisharp
+-- extension and are ignored by `vim.lsp.config`; these are the equivalent
+-- omnisharp-roslyn server settings.
 vim.lsp.config("omnisharp", {
 	cmd = { "omnisharp" },
-	enable_roslyn_analyzers = true,
-	organize_imports_on_format = true,
-	enable_import_completion = true,
+	settings = {
+		FormattingOptions = {
+			OrganizeImports = true,
+		},
+		RoslynExtensionsOptions = {
+			EnableAnalyzersSupport = true,
+			EnableImportCompletion = true,
+		},
+	},
 })
 vim.lsp.enable("omnisharp")

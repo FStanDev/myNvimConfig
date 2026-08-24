@@ -20,7 +20,10 @@ return {
 		end,
 	},
 	{
-		"williamboman/mason.nvim",
+		-- mason.nvim moved to the `mason-org` org for v2. The williamboman/*
+		-- paths still redirect, but v2 docs and :checkhealth expect this one.
+		"mason-org/mason.nvim",
+		version = "^2.0.0",
 		cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUpdate", "MasonUninstallAll" },
 		opts = function()
 			return require("configs.mason")
@@ -36,10 +39,13 @@ return {
 		end,
 	},
 	{
-		"williamboman/mason-lspconfig.nvim",
+		"mason-org/mason-lspconfig.nvim",
+		version = "^2.0.0",
 		config = function()
 			require("mason-lspconfig").setup({
-				automatic_installation = false,
+				-- `automatic_installation` was removed in v2 and is ignored.
+				-- `automatic_enable = false` is required: servers are enabled
+				-- explicitly in lua/configs/lsp.lua via vim.lsp.enable().
 				automatic_enable = false,
 			})
 		end,
@@ -47,8 +53,8 @@ return {
 	{
 		"neovim/nvim-lspconfig",
 		dependencies = {
-			{ "williamboman/mason.nvim" },
-			{ "williamboman/mason-lspconfig.nvim" },
+			{ "mason-org/mason.nvim" },
+			{ "mason-org/mason-lspconfig.nvim" },
 		},
 		config = function()
 			require("configs.lsp")

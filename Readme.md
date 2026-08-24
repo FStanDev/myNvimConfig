@@ -18,7 +18,10 @@ On configs folder you will find specific configuraton for each plugin of my setu
 
 ## Prerequisites
 
-Nvim >= [0.11.5](https://github.com/neovim/neovim/releases/tag/v0.11.5) (I´m currently using [0.11.5](https://github.com/neovim/neovim/releases/tag/v0.11.5))
+Nvim >= [0.11](https://github.com/neovim/neovim/releases/tag/v0.11.0) — the config uses the
+`vim.lsp.config()` / `vim.lsp.enable()` API and the nvim-treesitter `main` branch, both of
+which need 0.11 or newer. Currently developed and tested on
+[0.12.2](https://github.com/neovim/neovim/releases/tag/v0.12.2).
 
 [Ripgrep](https://github.com/BurntSushi/ripgrep) is optional but highly recommended
 

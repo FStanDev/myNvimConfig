@@ -1,3 +1,6 @@
+-- NOTE: `ensure_installed` is NOT a mason.nvim option (mason itself has no
+-- such setting). It is consumed by the hand-rolled :MasonInstallAll command
+-- defined in lua/configs/lazy.lua, which shells out to :MasonInstall.
 return {
 	ensure_installed = vim.list_extend({
 		"lua-language-server",

@@ -2,8 +2,10 @@
 
 vim.g.mapleader = " "
 
-vim.wo.relativenumber = true
-vim.wo.number = true
+-- `vim.wo` is window-local, so at startup these only applied to the first
+-- window. `vim.o` sets the global default that new windows inherit.
+vim.o.relativenumber = true
+vim.o.number = true
 --GENERAL Mappings
 vim.keymap.set("n", "<leader>vs", vim.cmd.vsplit)
 vim.keymap.set("n", "<leader>e", vim.cmd.NvimTreeFocus)
@@ -98,13 +100,14 @@ vim.keymap.set("n", "<leader>x", function()
 	vim.cmd.bdelete("#")
 end)
 vim.keymap.set("v", "<leader>y", '"+yy', { noremap = true })
-vim.keymap.set("n", "<leader> dy", "3<cmd>lua vim.diagnostic.open_float()<CR>", { noremap = true })
+vim.keymap.set("n", "<leader>dy", vim.diagnostic.open_float, { desc = "Show diagnostic under cursor" })
 vim.keymap.set("n", "<leader>fi", "/", { noremap = true })
 -- Map leader + a to select entire document
 vim.keymap.set("n", "<leader>a", "ggVG", { noremap = true })
 --vim.o.timeoutlen=200
-vim.opt.foldmethod = "syntax"
-vim.opt.foldlevelstart = 99
+-- Folding is configured in lua/configs/treesitter.lua (foldmethod=expr +
+-- treesitter foldexpr). Setting foldmethod="syntax" here only ever got
+-- overwritten a moment later, and foldlevelstart was set in both places.
 -- Toggle Tailwind class concealment
 vim.keymap.set("n", "<leader>tc", "<cmd>TailwindConcealToggle<CR>", { desc = "Toggle Tailwind conceal" })
 
